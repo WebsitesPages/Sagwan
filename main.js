@@ -15,81 +15,85 @@
 
 
   
-// Hamburger Menu
-const menuIcon = document.querySelector('.menu-icon');
-const menu = document.querySelector('.menu');
-const closeIcon = document.querySelector('.close-icon');
-const menuItems = document.querySelectorAll('.menu li a');
-const header = document.getElementById('myHeader');
+// Funktion zum Registrieren der Event-Listener für einen bestimmten Header
+function registerHeaderEventListeners(header) {
+    const menuIcon = header.querySelector('.menu-icon');
+    const menu = header.querySelector('.menu');
+    const closeIcon = header.querySelector('.close-icon');
+    const menuItems = header.querySelectorAll('.menu li a');
 
-menuIcon.addEventListener('click', () => {
-    menuIcon.classList.toggle('active');
-    menu.classList.toggle('active');
-});
+    menuIcon.addEventListener('click', () => {
+        menuIcon.classList.toggle('active');
+        menu.classList.toggle('active');
+    });
 
-closeIcon.addEventListener('click', () => {
-    menuIcon.classList.remove('active');
-    menu.classList.remove('active');
-});
-
-window.addEventListener('resize', () => {
-    if (window.innerWidth > 768 && menu.classList.contains('active')) {
-        menuIcon.classList.remove('active');
-        menu.classList.remove('active');
-    }
-});
-
-menuItems.forEach(item => {
-    item.addEventListener('click', () => {
+    closeIcon.addEventListener('click', () => {
         menuIcon.classList.remove('active');
         menu.classList.remove('active');
     });
-});
 
-// Smooth scrolling for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-
-        let target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            let headerHeight = document.getElementById('myHeader').offsetHeight;
-            let targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
-
-            window.scrollTo({
-                top: targetPosition - headerHeight - parseInt(getComputedStyle(target).marginTop),
-                behavior: 'smooth'
-            });
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768 && menu.classList.contains('active')) {
+            menuIcon.classList.remove('active');
+            menu.classList.remove('active');
         }
     });
-});
+
+    menuItems.forEach(item => {
+        item.addEventListener('click', () => {
+            menuIcon.classList.remove('active');
+            menu.classList.remove('active');
+        });
+    });
+
+    // Smooth scrolling für Anker-Links
+    header.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            let target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                let headerHeight = header.offsetHeight;
+                let targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
+
+                window.scrollTo({
+                    top: targetPosition - headerHeight - parseInt(getComputedStyle(target).marginTop),
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+}
 
 // Header visibility
-// Kopieren Sie Ihren Header und fügen Sie ihn der Seite hinzu, wenn die Seite geladen wird
 window.addEventListener('DOMContentLoaded', (event) => {
-    let clonedHeader = header.cloneNode(true);
+    const originalHeader = document.getElementById('myHeader');
+    let clonedHeader = originalHeader.cloneNode(true);
     clonedHeader.id = 'stickyHeader';
     clonedHeader.classList.add('sticky');
-    clonedHeader.style.backgroundColor = "black";
     document.body.appendChild(clonedHeader);
+
+    // Registrieren Sie die Event-Listener für beide Header
+    registerHeaderEventListeners(originalHeader);
+    registerHeaderEventListeners(clonedHeader);
 });
 
 // Aktualisieren Sie Ihren Scroll-Event-Listener, um den neuen Header anzuzeigen/zu verbergen
 window.addEventListener('scroll', function () {
     let stickyHeader = document.getElementById('stickyHeader');
+    let menuIcon = stickyHeader.querySelector('.menu-icon');
     
     if (window.pageYOffset > 100) {
-        stickyHeader.style.backgroundColor = "rgb(0, 0, 0)";
         stickyHeader.style.visibility = "visible";
         stickyHeader.style.opacity = "1";
+        menuIcon.classList.add('menu-icon-raised');  // Hinzufügen der Klasse
     } 
     else {
-        stickyHeader.style.backgroundColor = "transparent";
         stickyHeader.style.visibility = "hidden";
         stickyHeader.style.opacity = "0";
+        menuIcon.classList.remove('menu-icon-raised');  // Entfernen der Klasse
     }
 });
-
 
 window.onload = function() {
     // Warten Sie eine Sekunde und fügen Sie dann die .fade-in Klasse hinzu, um den Container einzublenden
