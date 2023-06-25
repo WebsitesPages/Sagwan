@@ -1,0 +1,382 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html{
+    scroll-behavior: smooth;
+    background-color: black;
+}
+:root {
+    --praesision-font-size: calc(4vw + 4vh);
+    --praesision-font-size-responsive: calc(3.5vw + 3.5vh);
+    --golden-ratio: 1.618;
+    --webas-font-size: calc(var(--praesision-font-size) / var(--golden-ratio));
+    --kopf-font-size: calc(var(--webas-font-size) / (var(--golden-ratio) * 1.8));
+    --royale-blue: #4169e1;
+}
+@media (max-width: 768px) {
+    :root {
+        --praesision-font-size: calc(3.5vw + 3.5vh);
+    }
+}
+
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+/*Ladescreen*/
+
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  }
+  
+  .loader {
+    border: 5px solid black;
+    border-top: 5px solid white;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  #header-placeholder {
+    height: 8vh; 
+    display: none;
+    width: 100%;
+}
+/* Header */
+
+header {
+    background-color: transparent;
+    padding: 5px; /* Setzen Sie den Wert, den Sie bevorzugen */
+    height: 80px; /* Setzen Sie die Höhe, die Sie bevorzugen */
+    line-height: 80px; /* Dies sollte der gleiche Wert wie die Höhe sein */
+    z-index: 999;
+    position: absolute;
+    top: 0;
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+    width: 100%;
+}
+
+.sticky {
+    position: fixed;
+    top: 0;
+    background-color: rgb(0, 0, 0);
+    transition: opacity 0.5s ease-in-out;
+    visibility: hidden;
+    opacity: 0;
+    padding-bottom: 2rem;
+}
+  
+  #myHeader {
+    transition: box-shadow 0.5s, opacity 0.5s;
+}
+
+
+.sticky-visible {
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
+    opacity: 1; 
+}
+
+
+
+.main-nav {
+    text-align: center;
+}
+
+.main-nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: inline-flex;
+}
+
+.main-nav li {
+    margin: 0 4.5vh;
+}
+
+.main-nav a {
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-size: 1em;
+    text-decoration: none;
+    color: white;
+    padding-bottom: 3px;
+}
+
+
+.main-nav a {
+    position: relative;
+}
+
+.main-nav a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    height: 3px;
+    width: 0;
+    background-color: white;
+    transition: width 0.3s;
+}
+
+.main-nav a:hover::after {
+    width: 100%;
+}
+
+/**/
+
+/*Hamburger Header*/
+.menu-icon {
+    font-size: 24px;
+    cursor: pointer;
+    display: none;
+  }
+
+.close-icon {
+    display: none;
+  }
+
+.menu.active .close-icon {
+    display: block;
+}
+  
+.menu-icon.hidden {
+    display: none;
+}
+  
+@media screen and (max-width: 768px) {
+    .menu-icon-raised {
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    
+    .menu-icon {
+      display: block;
+      position: absolute;
+      right: 5%;
+    }
+  
+    .menu {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #000000;
+        z-index: 999;
+        text-align: left;
+        padding-top: 60px;
+        opacity: 0;
+        transition: opacity 0.5s;
+        pointer-events: none; /* Fügen Sie diese Zeile hinzu */
+    }
+      
+    .menu.active {
+        opacity: 0.9;
+
+        pointer-events: auto; /* Fügen Sie diese Zeile hinzu */
+    }
+      
+    .menu ul {
+      flex-direction: column;
+      align-items: left;
+      justify-content: left;
+      padding-left: 3rem;
+      margin: 0;
+      padding-top: 4rem;
+
+    }
+  
+    .menu li {
+      margin: 3px 0;
+      position: relative;
+    }
+    .menu li:not(:last-child)::after {
+        content: "";
+        display: block;
+        height: 1px;
+        background-color: white;
+        margin: 10px 0;
+    }
+    .menu a {
+      color: white;
+      text-decoration: none;
+      text-transform: uppercase;
+      font-size: calc(var(--kopf-font-size) * 2);
+    }
+    .main-nav li:last-child a{
+        all: unset;
+        font-family: 'Montserrat', Arial, sans-serif;
+        font-size: calc(var(--kopf-font-size) * 2);
+        text-transform: uppercase;
+        color: white;
+        padding-bottom: 3px;
+    }
+    .main-nav li:last-child a:hover {
+        color: white;
+        background-color: black;
+      }
+}
+  
+.material-symbols-outlined {
+    font-variation-settings:
+      'FILL' 0,
+      'wght' 400,
+      'GRAD' 0,
+      'opsz' 48
+}
+
+.black.material-symbols-outlined {
+    color: #000; /* Schwarz */
+}
+  
+  .material-symbols-outlined {
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    color: white;
+    font-size: 2.5;
+}
+.material-symbols-outlinedone{
+    color: black;
+}
+.material-symbols-outlined:hover{
+    scale: 1.2;
+    transition: .5s;
+}
+.close-icon {
+position: absolute;
+top: 25px;
+right: 25px;
+font-size: 24px;
+cursor: pointer;
+display: none;
+}
+
+
+
+ .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: row;
+    gap: 0px; 
+}
+
+.image {
+    width: 20%;
+    max-width: 100%;
+}
+
+.text {
+    color: rgb(221, 221, 221);
+    font-size: 5rem;
+    font-family: 'Bebas Neue', sans-serif;
+}
+
+.container, header {
+    opacity: 0; 
+} 
+
+/* Die .fade-in Klasse wird Elementen hinzugefügt, um sie einzublenden */
+.fade-in {
+    animation: fadeIn 2s forwards; /* Dauer der Animation: 2 Sekunden. forwards bedeutet, dass die Elemente sichtbar bleiben, nachdem die Animation abgeschlossen ist. */
+}
+
+@keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+
+.banner {
+    position: relative;
+    background-image: url('Barbershop.png');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    margin-top: 0; /* Stellen Sie sicher, dass es keinen Abstand nach oben gibt */
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Ändern Sie den Alpha-Wert (hier 0.5) für unterschiedliche Verdunkelungsstufen */
+}
+
+.banner2 {
+    width: 100%;
+    height: 100vh;
+    color: white;
+    font-family: 'Bebas Neue', sans-serif;
+}
+
+.container2 {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: 30px 0;
+    padding-top: 20vh;
+}
+
+.container2 .box {
+    flex: 1 0 200px;  /* Basisbreite der Box */
+    margin: 10px;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    line-height: 1.2; /* Verringert den Abstand zwischen den Zeilen */
+    opacity: 0;
+    transition: opacity 3s ease-out;
+}
+
+@media screen and (max-width: 768px) {  /* Änderung bei Geräten mit einer Bildschirmbreite von maximal 768 Pixel */
+    .container2 {
+        flex-direction: column;  /* Boxen untereinander */
+        padding-top: 5vh;
+    }
+
+    .container2 .box {
+        margin-bottom: -40px;  /* Zusätzlicher Abstand zwischen den Boxen */
+    }
+}
+
+
+
+.number {
+    font-size: 50px;
+    font-weight: bold;
+    margin-bottom: -20px; /* Näher zusammenrücken der Texte */
+}
+
+.lower-text {
+    font-size: 25px;
+}
