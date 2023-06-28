@@ -140,3 +140,24 @@ let numberElements = document.querySelectorAll('.number');
 numberElements.forEach((numberElement) => {
     observer.observe(numberElement);
 });
+
+
+// Neuer Observer für die Textcontainer
+let textObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            textObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.3 });
+
+let fadeItems = document.querySelectorAll('.text-container .fade-item');
+fadeItems.forEach((item) => {
+    textObserver.observe(item);
+});
+
+
+
+
+
