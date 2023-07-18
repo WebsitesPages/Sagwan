@@ -85,7 +85,7 @@ window.addEventListener('scroll', function () {
     
     if (window.pageYOffset > 100) {
         stickyHeader.style.visibility = "visible";
-        stickyHeader.style.opacity = "1";
+        stickyHeader.style.opacity = "0.8";
         menuIcon.classList.add('menu-icon-raised');  // Hinzufügen der Klasse
     } 
     else {
